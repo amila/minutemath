@@ -4,14 +4,14 @@ import sys
 import time
 import threading
 
-total_questions = 40
+total_questions = 20
 time_duration = 1000*60
 
 top_minimum=0
-top_maximum=10
+top_maximum=20
 
-bottom_minimum=0
-bottom_maximum=9
+bottom_minimum=1
+bottom_maximum=20
 
 repeat_incorrect_question=False
 
@@ -20,6 +20,7 @@ repeat_incorrect_question=False
 
 
 bad_colour = '\033[1;31;40m '
+good_colour = '\x1b[1,255,0m '
 
 correct_answers = 0
 incorrect_questions = []
@@ -53,7 +54,7 @@ def timeout(seconds=1*60):
 
     os._exit(0)
 
-def format_subtraction_question(question, colour='\033[1;30;40m '):
+def format_subtraction_question(question, colour='\x1b[1;255;40m '):
     result = colour + str(question[0]) + '-' + str(question[1]) + ' = '
     if len(question) == 3:
         result = result + question[2]
@@ -100,11 +101,8 @@ if __name__ == "__main__":
         while( (repeat_incorrect_question and not correct_answer) or not question_answered):
             os.system("clear")
             print("You got " + str(streak) + " questions correct in a row!")
-            color = "\033[1;32;40m "
-            if points_per_question == 0:
-                color = "\033[1;31;40m "
 
-            val = input('#' + str(question_counter) + '. ' + format_subtraction_question(question, colour=color))
+            val = input('#' + str(question_counter) + '. ' + format_subtraction_question(question, colour=good_colour))
             
             if not val.isnumeric():
                 os.system("clear")
